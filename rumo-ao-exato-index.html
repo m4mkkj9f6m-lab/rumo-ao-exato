@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Rumo ao EXATO — @medmrcss</title>
+<style>
+:root{--bg:#061326;--panel:#0c2038;--panel2:#102b49;--gold:#d7b45a;--gold2:#f4dc91;--text:#f7f8fb;--muted:#9fb0c5;--ok:#55d98b;--bad:#ff6b6b}
+*{box-sizing:border-box}body{margin:0;color:var(--text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(circle at 50% -10%,#1b4772 0,#0b2039 35%,#061326 72%,#030914 100%);min-height:100vh}
+button{font:inherit}.app{max-width:760px;margin:auto;min-height:100vh;padding:22px 16px 34px}.brand{text-align:center;padding:18px 0 22px}.crown{font-size:42px}.brand h1{margin:5px 0;color:var(--gold2);font-size:31px;letter-spacing:1.2px}.brand p{margin:4px 0;color:var(--muted)}.signature{font-weight:800;color:var(--gold);margin-top:6px}
+.card{background:linear-gradient(145deg,rgba(16,43,73,.96),rgba(7,20,38,.97));border:1px solid rgba(215,180,90,.28);border-radius:23px;padding:20px;box-shadow:0 20px 55px rgba(0,0,0,.35);margin-bottom:16px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.subject{border:1px solid rgba(215,180,90,.3);background:#091a2e;color:var(--text);border-radius:18px;padding:21px 14px;text-align:left;cursor:pointer;transition:.18s}.subject:active{transform:scale(.98)}.subject:hover{border-color:var(--gold);transform:translateY(-2px)}.icon{font-size:31px}.subject b{display:block;font-size:20px;margin-top:8px}.subject small{display:block;color:var(--muted);margin-top:3px;line-height:1.35}
+.top{display:flex;align-items:center;justify-content:space-between;gap:8px;color:var(--muted);font-size:14px}.stats{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}.pill{padding:7px 10px;border-radius:999px;background:#061326;border:1px solid rgba(255,255,255,.08)}.gold{color:var(--gold2)}
+.progress{height:8px;background:#061326;border-radius:999px;overflow:hidden;margin:16px 0}.bar{height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--gold2));transition:.3s}
+.q{font-size:20px;line-height:1.45;margin:18px 0}.answers{display:grid;gap:10px}.answer{background:#091a2e;border:1px solid rgba(255,255,255,.1);color:var(--text);border-radius:15px;padding:15px;text-align:left;cursor:pointer}.answer:hover{border-color:var(--gold)}.answer:disabled{cursor:default}.answer.correct{border-color:var(--ok);background:#123b2b}.answer.wrong{border-color:var(--bad);background:#3b1b22}
+.feedback{margin-top:14px;padding:14px;border-radius:15px;background:#061326;color:var(--muted);line-height:1.48}.primary{width:100%;border:0;border-radius:15px;padding:15px;background:linear-gradient(135deg,#c8a34d,#f1d67f);color:#061326;font-weight:900;cursor:pointer;margin-top:14px}.ghost{border:1px solid rgba(255,255,255,.13);background:#091a2e;color:var(--text);border-radius:12px;padding:10px 14px;cursor:pointer}.hidden{display:none}.center{text-align:center}.big{font-size:56px}.result{font-size:39px;font-weight:900;color:var(--gold2)}.footer{text-align:center;color:#71849b;font-size:13px;margin-top:24px}
+.badge{display:inline-block;padding:7px 11px;border-radius:999px;background:#061326;color:var(--gold2);border:1px solid rgba(215,180,90,.22);font-size:12px;font-weight:700}.topics{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}
+@media(max-width:520px){.grid{grid-template-columns:1fr}.q{font-size:18px}.brand h1{font-size:27px}}
+</style>
+</head>
+<body>
+<main class="app">
+
+<section id="home">
+  <div class="brand">
+    <div class="crown">🏆</div>
+    <h1>RUMO AO EXATO</h1>
+    <p>Seu treino. Seu ritmo. Sua aprovação.</p>
+    <div class="signature">@medmrcss</div>
+  </div>
+
+  <div class="card">
+    <div class="top"><span>🎮 MODO TREINO</span><span class="gold">⭐ +10 XP por acerto</span></div>
+    <h2>Escolha uma matéria</h2>
+    <p style="color:var(--muted)">Responda, ganhe XP e acompanhe sua evolução.</p>
+    <div class="grid">
+      <button class="subject" onclick="start('Física')"><span class="icon">⚡</span><b>Física</b><small>Termologia, mecânica, movimentos, energia e eletricidade.</small></button>
+      <button class="subject" onclick="start('Química')"><span class="icon">🧪</span><b>Química</b><small>Atomística, ligações, orgânica, estequiometria e soluções.</small></button>
+      <button class="subject" onclick="start('Biologia')"><span class="icon">🧬</span><b>Biologia</b><small>Ecologia, fisiologia, citologia, metabolismo e DNA.</small></button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="top"><b>📈 SEU PROGRESSO</b><span id="homeXP">0 XP</span></div>
+    <div class="topics"><span class="badge">❤️ 3 vidas por rodada</span><span class="badge">🪙 moedas</span><span class="badge">🏆 fases</span></div>
+  </div>
+  <div class="footer">Rumo ao EXATO • @medmrcss</div>
+</section>
+
+<section id="game" class="hidden">
+  <div class="top">
+    <button class="ghost" onclick="goHome()">← Matérias</button>
+    <div class="stats"><span class="pill">❤️ <span id="lives">3</span></span><span class="pill">⭐ <span id="xp">0</span></span><span class="pill">🪙 <span id="coins">0</span></span></div>
+  </div>
+  <div class="card">
+    <div class="top"><span id="subjectName"></span><span id="counter"></span></div>
+    <div class="progress"><div class="bar" id="bar"></div></div>
+    <div class="q" id="question"></div>
+    <div class="answers" id="answers"></div>
+    <div id="feedback" class="feedback hidden"></div>
+    <button id="next" class="primary hidden" onclick="nextQ()">Continuar →</button>
+  </div>
+  <div class="footer">Rumo ao EXATO • @medmrcss</div>
+</section>
+
+<section id="result" class="hidden">
+  <div class="card center">
+    <div class="big">🏆</div>
+    <h1>Fase concluída!</h1>
+    <div class="result" id="score"></div>
+    <p id="resultText" style="color:var(--muted);line-height:1.5"></p>
+    <button class="primary" onclick="goHome()">Jogar outra matéria</button>
+  </div>
+  <div class="footer">@medmrcss</div>
+</section>
+
+</main>
+
+<script>
+const data={
+"Física":[
+["Um carro percorre 120 km em 2 h. Qual é sua velocidade média?",["40 km/h","50 km/h","60 km/h","80 km/h","100 km/h"],2,"v = Δs/Δt = 120/2 = 60 km/h."],
+["Ao aquecer uma barra metálica, seu comprimento aumenta. Esse fenômeno é chamado de:",["Condução","Dilatação térmica","Convecção","Refração","Fusão"],1,"A variação das dimensões de um corpo provocada pela variação de temperatura é dilatação térmica."],
+["Segundo a 2ª lei de Newton, a relação correta é:",["F = m/a","F = m·a","F = a/m","F = m+a","F = m−a"],1,"A força resultante é dada por F = m·a."],
+["Um corpo possui força resultante nula. Sua aceleração é:",["Máxima","Negativa","Zero","Igual ao peso","Igual à velocidade"],2,"Se a força resultante é nula, pela 2ª lei de Newton a aceleração também é nula."],
+["Em um circuito, a grandeza medida em volts é a:",["Corrente elétrica","Resistência","Potência","Diferença de potencial","Carga elétrica"],3,"Volt (V) é a unidade da diferença de potencial elétrico."],
+["Na queda livre, desprezando a resistência do ar, a aceleração do corpo é:",["Zero","Aceleração da gravidade","Sempre variável","Igual à massa","Igual à velocidade"],1,"Na queda livre ideal, a aceleração é aproximadamente g."],
+["A energia cinética de um corpo está relacionada principalmente à sua:",["Temperatura","Velocidade","Pressão","Altura","Carga elétrica"],1,"A energia cinética é Ec = mv²/2 e depende da velocidade."],
+["Em um gás ideal, mantendo a temperatura constante, aumentar o volume provoca:",["Aumento da pressão","Diminuição da pressão","Pressão sempre nula","Aumento da massa","Diminuição da massa"],1,"Pela lei de Boyle, a pressão e o volume são inversamente proporcionais a temperatura constante."]
+],
+"Química":[
+["Qual partícula apresenta carga elétrica negativa?",["Próton","Nêutron","Elétron","Núcleo","Cátion"],2,"O elétron possui carga elétrica negativa."],
+["A separação de areia e água pode ser feita por:",["Destilação fracionada","Filtração","Cromatografia","Fusão","Sublimação"],1,"A filtração separa um sólido insolúvel de um líquido."],
+["Elementos de uma mesma família da tabela periódica apresentam, em geral:",["Mesmo número de nêutrons","Propriedades químicas semelhantes","Mesma massa","Mesmo período","Mesmo número de camadas"],1,"Elementos de um mesmo grupo possuem propriedades químicas semelhantes."],
+["A molécula H₂O apresenta geometria:",["Linear","Trigonal plana","Angular","Tetraédrica","Piramidal"],2,"A molécula de água possui geometria angular."],
+["Uma solução é formada por:",["Apenas solvente","Apenas soluto","Soluto e solvente","Dois sólidos obrigatoriamente","Gás e sólido obrigatoriamente"],2,"Uma solução é uma mistura homogênea formada por soluto e solvente."],
+["A ligação formada pela transferência de elétrons entre átomos é, em geral, a ligação:",["Metálica","Iônica","Covalente apolar","Covalente polar","De hidrogênio"],1,"Na ligação iônica ocorre transferência de elétrons, formando íons."],
+["A quantidade de matéria é medida, no SI, em:",["Grama","Litro","Mol","Newton","Pascal"],2,"O mol é a unidade da quantidade de matéria."],
+["O grupo funcional característico dos álcoois é:",["−COOH","−CHO","−OH","−COO−","−NH₂"],2,"Os álcoois apresentam o grupo hidroxila (−OH) ligado a carbono saturado."]
+],
+"Biologia":[
+["Na cadeia alimentar, os produtores são organismos que:",["Alimentam-se de outros seres","Produzem matéria orgânica a partir de fontes inorgânicas","Só realizam respiração","Não possuem células","Vivem apenas em ambientes aquáticos"],1,"Produtores, como plantas e algas, produzem matéria orgânica, geralmente por fotossíntese."],
+["Na osmose, a água tende a se deslocar para o meio com:",["Menor concentração de solutos","Maior concentração de solutos","Zero solutos sempre","Maior temperatura obrigatoriamente","Maior quantidade de proteínas sempre"],1,"A água tende a se deslocar para o meio de maior concentração de solutos."],
+["Qual organela está diretamente relacionada à produção de ATP na respiração celular?",["Ribossomo","Lisossomo","Mitocôndria","Centríolo","Complexo golgiense"],2,"A mitocôndria é o principal local da respiração celular aeróbica."],
+["A fotossíntese utiliza principalmente:",["Oxigênio e glicose","Gás carbônico, água e luz","Nitrogênio e ATP","Proteínas e lipídios","Apenas água"],1,"CO₂ e água são utilizados na produção de matéria orgânica com energia luminosa."],
+["A relação ecológica em que uma espécie se beneficia e a outra é prejudicada é chamada de:",["Mutualismo","Comensalismo","Predatismo","Protocooperação","Inquilinismo"],2,"No predatismo, o predador se beneficia e a presa é prejudicada."],
+["A duplicação do DNA ocorre de maneira:",["Conservativa","Semiconservativa","Aleatória","Unidirecional em toda a molécula","Sem participação de enzimas"],1,"Cada molécula nova de DNA possui uma fita antiga e uma fita recém-sintetizada."],
+["O sistema responsável principalmente pelas trocas gasosas nos seres humanos é o:",["Digestório","Respiratório","Nervoso","Endócrino","Excretor"],1,"O sistema respiratório realiza as trocas de O₂ e CO₂."],
+["Na ecologia, a passagem de energia entre níveis tróficos é, em geral:",["Cíclica e integral","Unidirecional e com perdas","Sempre crescente","Independente dos produtores","Sem perdas"],1,"A energia flui de forma unidirecional e parte dela é dissipada como calor."]
+]};
+
+let subject="",qs=[],i=0,score=0,lives=3,answered=false;
+let xp=Number(localStorage.getItem("rumoXP")||0),coins=Number(localStorage.getItem("rumoCoins")||0);
+
+function el(id){return document.getElementById(id)}
+function start(s){subject=s;qs=data[s];i=0;score=0;lives=3;el("home").classList.add("hidden");el("result").classList.add("hidden");el("game").classList.remove("hidden");el("subjectName").textContent="📚 "+s;render()}
+function render(){
+ answered=false;el("counter").textContent=(i+1)+"/"+qs.length;el("bar").style.width=(i/qs.length*100)+"%";
+ el("question").textContent=qs[i][0];el("feedback").classList.add("hidden");el("next").classList.add("hidden");el("answers").innerHTML="";
+ qs[i][1].forEach((a,n)=>{let b=document.createElement("button");b.className="answer";b.textContent=String.fromCharCode(65+n)+") "+a;b.onclick=()=>answer(n,b);el("answers").appendChild(b)});
+ updateStats()
+}
+function answer(n,btn){
+ if(answered)return;answered=true;let correct=n===qs[i][2];
+ document.querySelectorAll(".answer").forEach((b,k)=>{b.disabled=true;if(k===qs[i][2])b.classList.add("correct")});
+ if(correct){score++;xp+=10;coins+=2;localStorage.setItem("rumoXP",xp);localStorage.setItem("rumoCoins",coins)}
+ else{btn.classList.add("wrong");lives--}
+ el("feedback").textContent=(correct?"✅ Acertou! +10 XP. ":"❌ Quase! ")+qs[i][3];el("feedback").classList.remove("hidden");el("next").classList.remove("hidden");updateStats()
+}
+function nextQ(){if(i<qs.length-1){i++;render()}else finish()}
+function finish(){el("game").classList.add("hidden");el("result").classList.remove("hidden");el("score").textContent=score+"/"+qs.length+" acertos";el("resultText").textContent="Você ganhou "+(score*10)+" XP nesta rodada. Total acumulado: "+xp+" XP. Continue treinando, @medmrcss!";}
+function updateStats(){el("lives").textContent=lives;el("xp").textContent=xp;el("coins").textContent=coins;el("homeXP").textContent=xp+" XP"}
+function goHome(){el("game").classList.add("hidden");el("result").classList.add("hidden");el("home").classList.remove("hidden");updateStats()}
+updateStats();
+</script>
+</body>
+</html>
